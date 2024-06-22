@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupyter Notebook Viewer</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/styles/atom-one-dark.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .notebook-container {
+            display: flex;
+            width: 100%;
+            max-width: 1800px;
+            margin-top: 50px;
+        }
+
+        .notebook-content-left,
+        .notebook-content-right {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 50%;
+            /* Each notebook takes 50% of the width */
+            overflow-y: auto;
+            /* Enable vertical scrollbar if needed */
+            max-height: 750px;
+            /* Limit maximum height */
+        }
+
+        .btn-container {
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        @media only screen and (max-width: 768px) {
+            .notebook-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .notebook-content-left,
+            .notebook-content-right {
+                width: 90%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="notebook-container">
+        <div class="notebook-content-left">
+            <h2>Binary Classification Notebook</h2>
+            {{ html_content_binary | safe }}
+        </div>
+        <div class="notebook-content-right">
+            <h2>Multi-Classification Notebook</h2>
+            {{ html_content_multi | safe }}
+        </div>
+    </div>
+    <div class="btn-container">
+        <button class="btn" onclick="downloadNotebooks()">Download Notebooks</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.3.1/highlight.min.js"></script>
+    <script>
+        // Initialize syntax highlighting for code blocks
+        hljs.highlightAll();
+
+        // Function to download notebooks
+        function downloadNotebooks() {
+            // Simulate downloading binary and multi-classification notebooks
+            // Replace '/path/to/binary_notebook.ipynb' and '/path/to/multi_notebook.ipynb' with actual paths
+            window.location.href = '/path/to/binary_notebook.ipynb';
+            window.location.href = '/path/to/multi_notebook.ipynb';
+        }
+    </script>
+</body>
+
+</html>

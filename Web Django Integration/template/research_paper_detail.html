@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ research_paper.title }}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            color: #343a40;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin-top: 50px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #007bff;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .authors,
+        .supervisor,
+        .publication-date,
+        .abstract {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+
+        .btn-view-pdf {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn-view-pdf:hover {
+            background-color: #0056b3;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .pdf-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>{{ research_paper.title }}</h1>
+        <p class="abstract"><strong>Abstract:</strong> {{ research_paper.abstract }}</p>
+        <p class="publication-date"><strong>Publication Date:</strong> {{ research_paper.publication_date }}</p>
+        <p class="supervisor"><strong>Supervisor:</strong> {{ research_paper.supervisor.name }}</p>
+        <p class="authors"><strong>Authors:</strong>
+            {% for author in research_paper.authors.all %}
+            {{ author.name }}{% if not forloop.last %}, {% endif %}
+            {% endfor %}
+        </p>
+        <p class="text-center">
+            <a href="{% url 'research_paper_pdf' %}" class="btn-view-pdf">
+                <i class="fas fa-file-pdf"></i> View PDF
+            </a>
+        </p>
+    </div>
+    <!-- jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function () {
+            $('.btn-view-pdf').hover(function () {
+                $(this).css('background-color', '#0056b3');
+            }, function () {
+                $(this).css('background-color', '#007bff');
+            });
+        });
+    </script>
+</body>
+
+</html>

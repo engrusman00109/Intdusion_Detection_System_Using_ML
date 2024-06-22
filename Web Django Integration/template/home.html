@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Bootstrap CSS for additional components -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+           background: linear-gradient(to right, #fc5862, #f6d365);
+            
+            color: #fff;
+        }
+
+        .navbar {
+            background-color: transparent;
+            color: black;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 999;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            font-size: 20px;
+            margin: 0 15px;
+            transition: all 0.3s ease;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .navbar a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        .container {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            margin-top: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .left-section {
+            width: 50%;
+            padding: 20px;
+            text-align: justify;
+        }
+
+        .left-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .left-section h2 {
+            font-size: 2rem;
+            font-family: 'Arial', sans-serif;
+            border-right: 2px solid #fff;
+            padding-right: 10px;
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes blink-caret {
+            from, to {
+                border-color: transparent;
+            }
+            50% {
+                border-color: white;
+            }
+        }
+
+        .right-section {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            padding: 15px 40px;
+            margin: 10px 0;
+            font-size: 20px;
+            background-color:  #f6d365;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            width: 100%; /* Set button width to 100% */
+        }
+        
+        .button:hover {
+            background-color: #fc5862;
+            transform: scale(1.05);
+        }
+        
+        .button:active {
+            transform: scale(0.95);
+        }
+
+        .navbar span {
+            font-weight: bold;
+            margin-left: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+                margin-top: 100px;
+            }
+            .left-section, .right-section {
+                width: 100%;
+            }
+            .buttons-container {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="#">Home</a>
+        <a href="{% url 'notebook_view' %}">Project-Code</a>
+        <a href="{% url 'project_output_list' %}">Project-Outputs</a>
+        <a href="{% url 'model_predictions' %}">Predictions</a>
+        <a href="{% url 'team_members' %}">Team</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'research_paper_detail' %}">Research paper</a>
+        <span>Welcome, {{ user.username }}</span>
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <div class="left-section">
+            <div class="typing-container">
+                <h1></h1>
+                <h2 id="typingText"></h2>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="buttons-container">
+                {% if user.is_authenticated %}
+                <form method="post" action="/accounts/logout/">
+                    {% csrf_token %}
+                    <button type="submit" class="button">Logout</button>
+                </form>
+                {% else %}
+                <button class="button" onclick="window.location.href='/accounts/login/'">Login</button>
+                <button class="button" onclick="window.location.href='/accounts/signup/'">Sign Up</button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery and Bootstrap JS for additional components -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const names = ["Optimizing Intrusion Detection System Through Significant Feature Selection By ML Techniques"];
+        let currentIndex = 0;
+        const typingTextElement = document.getElementById("typingText");
+
+        function typeText(text, index) {
+            if (index < text.length) {
+                typingTextElement.textContent += text[index];
+                index++;
+                setTimeout(() => {
+                    typeText(text, index);
+                }, 100); // Adjust the delay here (in milliseconds)
+            } else {
+                // Animation finished, clear text and start typing next name
+                setTimeout(() => {
+                    typingTextElement.textContent = "";
+                    currentIndex = (currentIndex + 1) % names.length;
+                    typeText(names[currentIndex], 0);
+                }, 2000); // Delay before starting next name (adjust as needed)
+            }
+        }
+
+        // Start typing the first name when the page loads
+        window.onload = function () {
+            typeText(names[currentIndex], 0);
+        };
+    </script>
+</body>
+
+</html>

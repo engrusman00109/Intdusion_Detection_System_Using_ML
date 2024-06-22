@@ -1,0 +1,164 @@
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: black;
+            color: #fff;
+        }
+
+        .signup-container {
+            background: linear-gradient(to right, #07d5be, #8988b5);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 2px;
+            width: 500px;
+            text-align: center;
+        }
+
+
+        h2 {
+            margin-bottom: 1px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 30px);
+            padding: 1px;
+            margin-bottom: 2px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"],
+        button[type="button"] {
+            width: calc(100% - 30px);
+            padding: 1px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+
+        button[type="submit"]:hover,
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        .message {
+            padding: 10px 20px;
+            margin-bottom: 2px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .success {
+            background-color: #dff0d8;
+            color: #3c763d;
+            border: 1px solid #d6e9c6;
+        }
+
+        .error {
+            background-color: #f2dede;
+            color: #a94442;
+            border: 1px solid #ebccd1;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .social-buttons {
+            margin-top: 2px;
+        }
+
+        .social-buttons button {
+            width: calc(100% - 30px);
+            padding: 1px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 1px;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-buttons .google {
+            background-color: #dd4b39;
+            color: #fff;
+        }
+
+        .social-buttons button:hover {
+            background-color: #d33a28;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Sign Up</button>
+        </form>
+        <!-- Display success messages -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="message success">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        <!-- Display error messages -->
+        {% if form.non_field_errors %}
+        <div class="message error">
+            {% for error in form.non_field_errors %}
+            {{ error }}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="or-divider">
+            <span class="or-text">OR</span>
+        </div>
+        <div class="social-buttons">
+            <a href="{% provider_login_url 'google' %}">
+                <button class="google">Sign Up with Google</button>
+            </a>
+        </div>
+        <p>Already have an account? <a href="{% url 'account_login' %}">Login</a></p>
+    </div>
+
+    <script>
+        function signupWithGoogle() {
+            // Implement Google signup functionality here
+            alert("Signing up with Google...");
+        }
+    </script>
+</body>
+
+</html>

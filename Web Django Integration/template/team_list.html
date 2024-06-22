@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/bg/bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fffafa;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #e9e3e3;
+            font-size: 2.5rem;
+        }
+
+        .teams {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .team {
+            background-color: #f7f1f1;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 40px;
+            width: 80%;
+            max-width: 1000px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            color: #000000;
+        }
+
+        .team:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .team h2 {
+            text-align: center;
+            color: #0a4bee;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .supervisor,
+        .student {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .supervisor img,
+        .student img {
+            max-width: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .supervisor img:hover,
+        .student img:hover {
+            transform: scale(1.1);
+        }
+
+        .students {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .student {
+            flex-basis: 45%;
+            background-color: #cab70a;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .student:hover {
+            background-color: #ececec;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .description {
+            margin-top: 20px;
+            text-align: justify;
+        }
+
+        .description h3 {
+            color: #333;
+        }
+
+        .description p {
+            color: #666;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Team</h1>
+    <div class="teams">
+        {% for team in teams %}
+        <div class="team">
+            <h2>{{ team.project_title }}</h2>
+            <div class="supervisor">
+                <img src="{{ team.supervisor.image.url }}" alt="{{ team.supervisor.name }}">
+                <h3>Supervisor</h3>
+                <p><strong>Name:</strong> {{ team.supervisor.name }}</p>
+                <p><strong>Phone Number:</strong> {{ team.supervisor.phone_number }}</p>
+                <p><strong>Email:</strong> {{ team.supervisor.email }}</p>
+            </div>
+            <div class="students">
+                <div class="student">
+                    <h3>Student 1</h3>
+                    <img src="{{ team.student1.image.url }}" alt="{{ team.student1.name }}">
+                    <p><strong>Name:</strong> {{ team.student1.name }}</p>
+                    <p><strong>Roll Number:</strong> {{ team.student1.roll_number }}</p>
+                    <p><strong>Phone Number:</strong> {{ team.student1.phone_number }}</p>
+                    <p><strong>Email:</strong> {{ team.student1.email }}</p>
+                </div>
+                <div class="student">
+                    <h3>Student 2</h3>
+                    <img src="{{ team.student2.image.url }}" alt="{{ team.student2.name }}">
+                    <p><strong>Name:</strong> {{ team.student2.name }}</p>
+                    <p><strong>Roll Number:</strong> {{ team.student2.roll_number }}</p>
+                    <p><strong>Phone Number:</strong> {{ team.student2.phone_number }}</p>
+                    <p><strong>Email:</strong> {{ team.student2.email }}</p>
+                </div>
+                <div class="student">
+                    <h3>Student 3</h3>
+                    <img src="{{ team.student3.image.url }}" alt="{{ team.student3.name }}">
+                    <p><strong>Name:</strong> {{ team.student3.name }}</p>
+                    <p><strong>Roll Number:</strong> {{ team.student3.roll_number }}</p>
+                    <p><strong>Phone Number:</strong> {{ team.student3.phone_number }}</p>
+                    <p><strong>Email:</strong> {{ team.student3.email }}</p>
+                </div>
+            </div>
+            <div class="description">
+                <h3>Description</h3>
+                <p>{{ team.description }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No teams available.</p>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

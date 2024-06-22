@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Outputs</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(to right, #fc5862, #f6d365);
+            color: #fff;
+            overflow-y: auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            border: 2px solid rgb(2, 2, 2);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            border: 2px solid #fff;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .image-list {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 20px;
+        }
+
+        .image-item {
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-item:hover {
+            transform: scale(1.05);
+        }
+
+        .image-details {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .image-details h2,
+        .image-details p {
+            margin: 0;
+            font-size: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Project Outputs</h1>
+    {% for section, outputs in section_outputs.items %}
+    <div class="section">
+        <h2>{{ section.name }}</h2>
+        <ul class="image-list">
+            {% for output in outputs %}
+            <li class="image-item">
+                <a href="{{ output.output_image.url }}" target="_blank" title="{{ output.id }}">
+                    <img src="{{ output.output_image.url }}" alt="{{ output.id }}">
+                </a>
+                <div class="image-details">
+                    <h2>{{ output.output_name }}</h2>
+                    <p>{{ output.output_description }}</p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% empty %}
+    <p>No project outputs available.</p>
+    {% endfor %}
+
+</body>
+
+</html>
